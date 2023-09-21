@@ -1,34 +1,41 @@
+"use client"
 import Link from 'next/link';
-import { Footer } from '@digdir/tlp-react';
-import { Button as DigdirButton } from '@digdir/design-system-react';
+import { FileCard, Footer } from '@digdir/tlp-react';
+import { Button } from '@digdir/design-system-react';
 
 export default function Home() {
   return (
     <main className='content'>
-      <Link href="client">Go to client component</Link>
-             <div>
-            <h2>Server component (/page.tsx)</h2>
-            <p>
-                The Digdir button uses client hooks so it wont work in a server component. Uncomment the button below
-                to see it complaining about React.createConext.
-
-            </p>
-            { /* <DigdirButton>Digdir Button</DigdirButton> */ }
-            <p>
-              The footer component is a component from a library that uses CSS modules and supports SSR. It does not load its computed
-              styles on the first page load. It will load the styles if you navigate from the /client page and back.
-              This works because the server is done loading, and the client has taken over. I think, in order to make
-              this work, a stylesheet has to be sent with the server (an imported CSS file) like NAV does it.
-            </p>
-            <Footer>
-                <Footer.Column>
-                    Footer column 1
-                </Footer.Column>
-                <Footer.Column>
-                    Footer column 2
-                </Footer.Column>
-            </Footer>
-        </div>
+      <ul>
+        <li>
+          <Link href="global">Go to client component with global styles</Link>
+        </li>
+        <li>
+          <Link href="individual">Go to client component with individual styles</Link>
+        </li>
+        <li>
+          <Link href="server">Go to server component, this will <b>NOT</b> work, and will <b>crash</b></Link>
+        </li>
+      </ul>
+      <div>
+        <h2>Client component (/page.tsx) with no styles imported</h2>
+        <p>
+          The footer and file card should not load any styles, since we have not imported the CSS file.
+          If you navigate to other pages, do a refresh to clear the cache, to make sure you would get the css files loaded.
+          As you navigate, styles will be loaded in, and will stay in the cache.
+        </p>
+        <p>This is an example of a button where the style "lags"</p>
+        <Button>Button</Button>
+        <FileCard heading={'heading'} description={'desc.'} filePath={'/'} />
+        <Footer>
+            <Footer.Column>
+                Footer column 1
+            </Footer.Column>
+            <Footer.Column>
+                Footer column 2
+            </Footer.Column>
+        </Footer>
+      </div>
     </main>
   )
 }
